@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PR1Belova</string>
+    <string name="tittle">Калькулятор общей стоимости груш по их весу и цене за килограмм</string>
+    <string name="result">OwO</string>
+    <string name="btn">Вычислить</string>
+    <string name="weight">Вес в кг</string>
+    <string name="value">Цена за 1кг</string>
+    <string name="money">рублей и копеек</string>
+</resources>
