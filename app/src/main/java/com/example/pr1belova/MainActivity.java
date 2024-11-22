@@ -6,18 +6,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView result;
     private EditText edit_weight, edit_value;
-    private Button btn;
+    private Button btn, btnSave, btnLoad;
+    SharedPreferences sPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         edit_weight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         edit_value.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
+        loadText();
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,9 +51,21 @@ public class MainActivity extends AppCompatActivity {
                 float num2 = Float.parseFloat(edit_value.getText().toString());
                 float res = num1*num2;
                 result.setText(String.valueOf(res));
+                saveText(String.valueOf(res));
             }
-
         });
-
     }
+
+    void saveText(String new_text) {
+        sPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString("ROUBLES", new_text);
+        ed.commit();
+    }
+    void loadText() {
+        sPref = getPreferences(MODE_PRIVATE);
+        String savedText = sPref.getString("ROUBLES", "");
+        result.setText(savedText);
+    }
+
 }
